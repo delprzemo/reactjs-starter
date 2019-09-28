@@ -20,3 +20,8 @@
 - Code Spell Checker
 - expand-region
 - Path Intellisense
+- VS Code ES7 React/Redux/React-Native/JS snippets
+
+
+TODO: 
+- advanced routing

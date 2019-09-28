@@ -1,21 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
+import Menu from './Menu/Menu'
+import Help from './Help/Help'
+import Home from './Home/Home'
+import List from './List/List'
 import './App.css';
-import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-function App() {
-  let colorClassName = "red-background";
 
-  function getTickElement() {
-    var second = new Date().getSeconds();
-    colorClassName = (second % 2 === 0) ? "green-background" : "red-background";
-    const element = <div className={colorClassName}></div>
-    return element;
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Router>
+          <Menu />
+
+          <Switch>
+            <Route path="/help"><Help /></Route>
+            <Route path="/list"><List /></Route>
+            <Route path="/"><Home /></Route>
+          </Switch>
+        </Router>
+      </div>
+    );
   }
-
-  return (
-    getTickElement()
-  );
 }
 
 export default App;
