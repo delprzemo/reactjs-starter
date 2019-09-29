@@ -5,20 +5,28 @@ export default class Square extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { color: "red-background" };
+        this.state = { color: "red-background", running: true };
     }
 
     componentDidMount() {
         this.timer = setInterval(this.tick, 1000);
     }
-  
+
     componentWillUnmount() {
         clearInterval(this.timer);
     }
 
+    onPauseButtonClick(e) {
+        e.preventDefault();
+        this.setState((state) => ({
+            running: !state.running
+        }));
+    }
+    
+
     tick = () => {
-        if(this.state) {
-            if(this.state.color === "red-background") {
+        if (this.state && this.state.running) {
+            if (this.state.color === "red-background") {
                 this.setState({
                     color: "green-background"
                 });
@@ -32,7 +40,10 @@ export default class Square extends Component {
 
     render() {
         return (
-            <div className={this.state.color}>Help</div>
+            <div>
+                <button onClick={(e) => this.onPauseButtonClick(e)}>Start/Stop</button>
+                <div className={this.state.color}>Help</div>
+            </div>
         )
     }
 }

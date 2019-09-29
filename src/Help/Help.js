@@ -3,9 +3,16 @@ import './Help.less'
 import Square from './Square/Square'
 
 export default class Help extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
-            <Square />
+            <div>
+                <Square />
+            </div>
         )
     }
 }
