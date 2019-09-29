@@ -24,7 +24,9 @@
 
 
 TODO: 
+- Form validation
 - Advanced routing
 - TypeScript
 - NgRx
 - hooks
+- tests
