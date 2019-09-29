@@ -6,7 +6,14 @@ export default class Square extends Component {
     constructor(props) {
         super(props);
         this.state = { color: "red-background" };
-        setInterval(this.tick, 1000);
+    }
+
+    componentDidMount() {
+        this.timer = setInterval(this.tick, 1000);
+    }
+  
+    componentWillUnmount() {
+        clearInterval(this.timer);
     }
 
     tick = () => {

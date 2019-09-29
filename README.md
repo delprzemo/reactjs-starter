@@ -24,4 +24,7 @@
 
 
 TODO: 
-- advanced routing
+- Advanced routing
+- TypeScript
+- NgRx
+- hooks
