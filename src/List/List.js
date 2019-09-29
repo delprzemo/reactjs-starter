@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './List.css'
+import ListForm from './ListForm/ListForm'
 
 export default class List extends Component {
     constructor(props) {
@@ -11,86 +12,6 @@ export default class List extends Component {
             { firstName: "Peter", lastName: "Seedorf", notes: "Don't try to make him angry", id: 4 }
         ]
         this.state = { users: users, pendingEditUser: null };
-    }
-
-    onFirstNameChange = (event) => {
-        let editedUser = this.state.pendingEditUser;
-        editedUser.firstName = event.target.value;
-        this.setState({ pendingEditUser: editedUser });
-    }
-
-    onLastNameChange = (event) => {
-        let editedUser = this.state.pendingEditUser;
-        editedUser.lastName = event.target.value;
-        this.setState({ pendingEditUser: editedUser });
-    }
-
-    onNotesChange = (event) => {
-        let editedUser = this.state.pendingEditUser;
-        editedUser.notes = event.target.value;
-        this.setState({ pendingEditUser: editedUser });
-    }
-
-    onSubmit = (e) => {
-        e.preventDefault();
-        let savedUser = this.state.pendingEditUser;
-        let users = this.state.users;
-        let index = users.findIndex((user => user.id == savedUser.id));
-        users[index] = savedUser;
-        this.setState({ users: users, pendingEditUser: null });
-    }
-
-    cancelEdit = (e) => {
-        e.preventDefault();
-        this.setState({
-            pendingEditUser: null
-        })
-    }
-
-    getForm() {
-        return (
-            <div className="row">
-                <div className="col-md-2"></div>
-                <div className="col-md-8">
-                    <form onSubmit={this.onSubmit}>
-                        <div className="form-row">
-                            <div className="form-group col-md-6">
-                                <label htmlFor="inputEmail4">First name</label>
-                                <input type="text"
-                                    value={this.state.pendingEditUser.firstName}
-                                    onChange={this.onFirstNameChange}
-                                    className="form-control"
-                                    id="inputEmail4"
-                                    placeholder="First name" />
-                            </div>
-                            <div className="form-group col-md-6">
-                                <label htmlFor="inputPassword4">Last name</label>
-                                <input type="text"
-                                    value={this.state.pendingEditUser.lastName}
-                                    onChange={this.onLastNameChange}
-                                    className="form-control"
-                                    id="inputPassword4"
-                                    placeholder="Last name" />
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="inputAddress">Notes</label>
-                            <input type="text"
-                                className="form-control"
-                                id="inputAddress"
-                                value={this.state.pendingEditUser.notes}
-                                onChange={this.onNotesChange}
-                                placeholder="Notes" />
-                        </div>
-
-                        <button className="btn btn-primary margin-left" onClick={this.cancelEdit}>Cancel</button>
-                        <button type="submit" className="btn btn-primary margin-left">Save</button>
-                    </form>
-                </div>
-                <div className="col-md-2"></div>
-            </div>
-
-        )
     }
 
     removeUser = (id) => {
@@ -141,9 +62,27 @@ export default class List extends Component {
         </tr>)
     }
 
+    onSaveUser= (savedUser) => {
+        let users = this.state.users;
+        let index = users.findIndex((user => user.id == savedUser.id));
+        users[index] = savedUser;
+        this.setState({ users: users, pendingEditUser: null });
+    }
+
+    onCancel = () => {
+        this.setState({
+            pendingEditUser: null
+        })
+    }
+
     renderListOrForm() {
         if (this.state.pendingEditUser) {
-            return <div>{this.getForm()}</div>
+            return <div>
+                <ListForm
+                    pendingEditUser={this.state.pendingEditUser}
+                    onSaveUser = {this.onSaveUser}
+                    onCancel ={this.onCancel}
+                     /></div>
         } else {
             return <div>
                 <table className="table">

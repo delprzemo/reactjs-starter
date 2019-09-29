@@ -33,10 +33,9 @@
 
 
 TODO: 
-- Form validation (Basic)
-- http client (Basic)
+- Form validation (Intermediate)
+- http client (Intermediate)
 - tests (Intermediate)
-- lint (intermediate)
 - Advanced routing
 - TypeScript
 - NgRx
