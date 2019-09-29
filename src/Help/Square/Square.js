@@ -42,10 +42,8 @@ export default class Square extends Component {
         return (
             <div>
                 <button onClick={(e) => this.onPauseButtonClick(e)}>Start/Stop</button>
-                <div className={this.state.color}>Help</div>
+                {this.state.running  ?  <div className={this.state.color}>Help</div> : <div>Please click button</div>}
             </div>
         )
     }
 }
-
-
