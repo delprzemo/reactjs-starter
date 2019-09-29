@@ -13,8 +13,14 @@ export default class List extends Component {
         this.state = { users: users };
     }
 
-    getUsers() {
+    removeUser = (id) => {
+        const newUserList = this.state.users.filter(x=>x.id !== id);
+        this.setState({
+            users: newUserList
+        })
+    }
 
+    getUsers() {
         function Row(props) {
             return (
                 <tr id={"row_" + props.index}>
@@ -22,8 +28,14 @@ export default class List extends Component {
                     <td>{props.firstName}</td>
                     <td>{props.lastName}</td>
                     <td>{props.notes}</td>
-                </tr>)
+                    <td><button className="btn btn-info">Edit</button></td>
+                    <td><button onClick={(e) => this.removeUser(props.id)} className="btn btn-danger">Remove</button></td>
+                </tr>
+                )
         }
+
+        Row = Row.bind(this);
+
 
         const listUsers = this.state.users.map((item, index) =>
             <Row key={"row_" + index}
@@ -41,6 +53,8 @@ export default class List extends Component {
             <th scope="col">First</th>
             <th scope="col">Last</th>
             <th scope="col">Handle</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
         </tr>)
     }
 
