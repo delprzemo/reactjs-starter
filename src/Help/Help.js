@@ -11,7 +11,7 @@ export default class Help extends Component {
     render() {
         return (
             <div>
-                <Square />
+                <Square><h1>Hello world</h1></Square>
             </div>
         )
     }
