@@ -2,18 +2,30 @@ import React, { Component } from 'react'
 import './Square.css'
 
 export default class Square extends Component {
-    render() {
 
-        let color = "red-background"
+    constructor(props) {
+        super(props);
+        this.state = { color: "red-background" };
+        setInterval(this.tick, 1000);
+    }
 
-        function tick() {
-            color = (color === "red-background") ? "green-background" : "red-background";
+    tick = () => {
+        if(this.state) {
+            if(this.state.color === "red-background") {
+                this.setState({
+                    color: "green-background"
+                });
+            } else {
+                this.setState({
+                    color: "red-background"
+                });
+            }
         }
+    }
 
-        setInterval(tick, 1000);
-
+    render() {
         return (
-            <div className={color}>Help</div>
+            <div className={this.state.color}>Help</div>
         )
     }
 }
