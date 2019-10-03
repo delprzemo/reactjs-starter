@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './ListForm.css'
+import TextInput from '../../Common/TextInput/TextInput'
 
 export default class ListForm extends Component {
     constructor(props) {
@@ -7,50 +8,32 @@ export default class ListForm extends Component {
         this.state = {
             user: props.pendingEditUser,
             formState: {
-                firstName: { touched: false, error: '', class: '' },
-                lastName: { touched: false, error: '', class: '' }
+                firstName: { error: '' },
+                lastName: { error: '' }
             }
         }
     }
 
-    onFirstNameChange = (event) => {
+    onFirstNameChange = (model) => {
         let user = this.state.user;
-        let error, validClass = "";
-        user.firstName = event.target.value;
-
-        if (!user.firstName) {
-            error = "Value cannot be empty"
-            validClass = "is-invalid"
-        } else {
-            error = ""
-            validClass = "is-valid"
-        }
+        user.firstName = model.value;
 
         this.setState({
             user: user,
-            formState: { ...this.state.formState, firstName: { touched: true, error: error, class: validClass } }
+            formState: {...this.state.formState, firstName: { error: model.error }}
         })
     }
 
-    onLastNameChange = (event) => {
+    onLastNameChange = (model) => {
         let user = this.state.user;
-        let error, validClass = "";
-        user.lastName = event.target.value;
-
-        if (!user.lastName) {
-            error = "Value cannot be empty"
-            validClass = "is-invalid"
-        } else {
-            error = ""
-            validClass = "is-valid"
-        }
+        user.lastName = model.value;
 
         this.setState({
             user: user,
-            formState: { ...this.state.formState, lastName: { touched: true, error: error, class: validClass } }
+            formState: {...this.state.formState, lastName: { error: model.error }}
         })
     }
-    
+
     onNotesChange = (event) => {
         let user = this.state.user;
         user.notes = event.target.value;
@@ -78,33 +61,21 @@ export default class ListForm extends Component {
                     <form onSubmit={this.onSubmit}>
                         <div className="form-row">
                             <div className="form-group col-md-6">
-                                <label htmlFor="inputEmail4">First name</label>
-                                <input type="text"
+                                <TextInput id="input_firstName"
                                     value={this.state.user.firstName}
                                     onChange={this.onFirstNameChange}
-                                    className={"form-control " + this.state.formState.firstName.class}
-                                    id="inputEmail4"
-                                    placeholder="First name" />
-                                {this.state.formState.firstName.error ?
-                                    <div className="invalid-feedback">
-                                        {this.state.formState.firstName.error}
-                                </div> : null
-                                }
+                                    required = {true}
+                                    placeholder="First name"
+                                    label="First name" />
 
                             </div>
                             <div className="form-group col-md-6">
-                                <label htmlFor="inputLastName">Last name</label>
-                                <input type="text"
+                                <TextInput id="input_lastName"
                                     value={this.state.user.lastName}
                                     onChange={this.onLastNameChange}
-                                    className={"form-control " + this.state.formState.lastName.class}
-                                    id="inputLastName"
-                                    placeholder="Last name" />
-                                {this.state.formState.lastName.error ?
-                                    <div className="invalid-feedback">
-                                        {this.state.formState.lastName.error}
-                                </div> : null
-                                }
+                                    required = {true}
+                                    placeholder="Last name"
+                                    label="Last name" />
 
                             </div>
                         </div>
