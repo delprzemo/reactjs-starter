@@ -36,11 +36,13 @@ TODO:
 - Form validation (Intermediate)
 - http client (Intermediate)
 - tests (Intermediate)
+- Hooks (przed "Zaawansowane informacje")
 - Advanced routing
 - TypeScript
-- NgRx
-- hooks
+- Redux
 - lint
 
 
+- Przełożyć "Myślenie reactowe" na początkowe slajdy
+- File structure (jest w FAQ)
 
