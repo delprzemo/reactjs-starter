@@ -130,7 +130,6 @@
 
 
 TODO: 
-- http client (Intermediate)
 - Advanced routing
 - tests (Intermediate)
 - Hooks (przed "Zaawansowane informacje")

@@ -15,7 +15,7 @@ class App extends React.Component {
           <Menu />
 
           <Switch>
-            <Route path="/help"><Help /></Route>
+            <Route path="/help/:id" component={Help}></Route>
             <Route path="/list"><List /></Route>
             <Route path="/"><Home /></Route>
           </Switch>
@@ -26,3 +26,6 @@ class App extends React.Component {
 }
 
 export default App;
+
+
+

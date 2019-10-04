@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Menu.css'
 import MenuItem from './MenuItem/MenuItem'
 import Account from '../Account/Account'
+import { Link } from "react-router-dom";
 
 
 export default class Menu extends Component {
@@ -19,7 +20,7 @@ export default class Menu extends Component {
                         <ul className="navbar-nav">
                             <MenuItem name="Home" url="/"/>
                             <MenuItem name="List" url="/list"/>
-                            <MenuItem name="Help" url="/help"/>
+                            <MenuItem name="Help" url="/help/3"/>
                         </ul>
                 </div>
 
