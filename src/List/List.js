@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './List.css'
 import ListForm from './ListForm/ListForm'
 
+
 export default class List extends Component {
     constructor(props) {
         super(props);
@@ -98,6 +99,7 @@ export default class List extends Component {
     }
 
     render() {
+        if (!localStorage.getItem('token')) return (<div>Please log in</div>)
         return (
             <div>
                 {this.renderListOrForm()}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './Menu.css'
 import MenuItem from './MenuItem/MenuItem'
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Account from '../Account/Account'
 
 
 export default class Menu extends Component {
@@ -12,6 +12,9 @@ export default class Menu extends Component {
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
+                <div className="account">
+                    <Account/>
+                </div>
                 <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <MenuItem name="Home" url="/"/>
@@ -19,6 +22,7 @@ export default class Menu extends Component {
                             <MenuItem name="Help" url="/help"/>
                         </ul>
                 </div>
+
             </nav>
         )
     }

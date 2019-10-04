@@ -4,7 +4,7 @@ import './TextInput.css'
 export default class TextInput extends Component {
 
     constructor(props) {
-        super(props); //id, onChange, label, value, isRequired, placeholder
+        super(props); //id, onChange, label, value, isRequired, placeholder, type
         this.state = {
             touched: false, error: '', class: '', value: ''
         }
@@ -13,13 +13,8 @@ export default class TextInput extends Component {
     onValueChanged =(event) => {
         let [error, validClass, value] = ["", "", event.target.value];
 
-        if (!value && this.props.required) {
-            error = "Value cannot be empty"
-            validClass = "is-invalid"
-        } else {
-            error = ""
-            validClass = "is-valid"
-        }
+        [error, validClass] = (!value && this.props.required) ? 
+            ["Value cannot be empty", "is-invalid"] : ["", "is-valid"]
 
         this.props.onChange({value: value, error: error});
 
@@ -35,8 +30,9 @@ export default class TextInput extends Component {
         return (
             <div>
                 <label htmlFor={this.props.id}>{this.props.label}</label>
-                <input type="text"
+                <input
                     value={this.props.value}
+                    type={this.props.type}
                     onChange={this.onValueChanged}
                     className={"form-control " + this.state.class}
                     id="inputEmail4"

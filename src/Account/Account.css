@@ -1,0 +1,17 @@
+.dropdown-menu {
+    width: 240px;
+}
+
+.right {
+    text-align: right;
+    margin-right: 10px;
+}
+
+.avatar {
+    max-width: 180px;
+}
+
+.center {
+    text-align: center;
+
+}
