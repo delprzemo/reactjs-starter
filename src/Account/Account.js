@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import './Account.css'
 import TextInput from '../Common/TextInput/TextInput'
 
+const axios = require('axios');
+
 export default class Account extends Component {
 
     constructor(props) {
@@ -17,18 +19,29 @@ export default class Account extends Component {
         }
     }
 
-    login = (e) => {
+    login = async (e) => {
         e.preventDefault();
         let token = "askd93kd29";
 
         localStorage.setItem('token', token);
 
-        this.setState({
-            token: token
-        })
+        const result = await axios.post('https://reqres.in/api/login', {
+            email: this.state.email,
+            password: this.state.password
+        }).catch(function (error) {
+            alert("Wrong email or password")
+        });
+
+        if(result) {
+            this.setState({
+                token: result.data.token,
+                email: "",
+                password: ""
+            })
+        }
     }
 
-    logout = ()  => {
+    logout = () => {
         this.setState({
             token: "",
             email: "",
