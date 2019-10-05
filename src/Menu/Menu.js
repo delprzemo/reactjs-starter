@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import './Menu.css'
 import MenuItem from './MenuItem/MenuItem'
 import Account from '../Account/Account'
-import { Link } from "react-router-dom";
-
 
 export default class Menu extends Component {
     render() {

@@ -130,7 +130,6 @@
 
 
 TODO: 
-- Advanced routing
 - tests (Intermediate)
 - Hooks (przed "Zaawansowane informacje")
 - Redux
