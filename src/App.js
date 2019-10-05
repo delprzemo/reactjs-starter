@@ -5,6 +5,8 @@ import Home from './Home/Home'
 import List from './List/List'
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import NoAccess from './NoAccess/NoAccess';
+import PrivateRoute from './Common/PrivateRoute/PrivateRoute';
 
 
 class App extends React.Component {
@@ -16,7 +18,8 @@ class App extends React.Component {
 
           <Switch>
             <Route path="/help/:id" component={Help}></Route>
-            <Route path="/list"><List /></Route>
+            <PrivateRoute path="/list" component={List}></PrivateRoute>
+            <Route path="/noAccess"><NoAccess /></Route>
             <Route path="/"><Home /></Route>
           </Switch>
         </Router>
