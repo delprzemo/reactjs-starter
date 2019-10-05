@@ -35,7 +35,7 @@ export default class TextInput extends Component {
                     type={this.props.type}
                     onChange={this.onValueChanged}
                     className={"form-control " + this.state.class}
-                    id="inputEmail4"
+                    id={`id_${this.props.label}`}
                     placeholder={this.props.placeholder} />
                 {this.state.error ?
                     <div className="invalid-feedback">
