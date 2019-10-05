@@ -21,9 +21,6 @@ export default class Account extends Component {
 
     login = async (e) => {
         e.preventDefault();
-        let token = "askd93kd29";
-
-        localStorage.setItem('token', token);
 
         const result = await axios.post('https://reqres.in/api/login', {
             email: this.state.email,
@@ -33,6 +30,7 @@ export default class Account extends Component {
         });
 
         if(result) {
+            localStorage.setItem('token', result.data.token);
             this.setState({
                 token: result.data.token,
                 email: "",
