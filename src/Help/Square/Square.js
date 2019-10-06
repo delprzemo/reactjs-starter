@@ -10,8 +10,6 @@ export default class Square extends Component {
         this.state = { color: "red-background", running: true };
     }
 
-    
-
     componentDidMount() {
         this.timer = setInterval(this.tick, 1000);
     }

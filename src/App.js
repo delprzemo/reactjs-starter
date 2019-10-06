@@ -29,10 +29,10 @@ class App extends React.Component {
             <Switch>
               <Provider value={{ firstColor: 'blue-background', secondColor: 'yellow-background' }}>
                 <Route path="/help/:id" component={Help}></Route>
+                <PrivateRoute path="/list" component={List}></PrivateRoute>
+                <Route path="/noAccess"><NoAccess /></Route>
+                <Route path="/"><Home /></Route>
               </Provider>
-              <PrivateRoute path="/list" component={List}></PrivateRoute>
-              <Route path="/noAccess"><NoAccess /></Route>
-              <Route path="/"><Home /></Route>
             </Switch>
           </Suspense>
         </Router>
