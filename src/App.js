@@ -13,9 +13,16 @@ const Help = lazy(() => import('./Help/Help'));
 
 class App extends React.Component {
   render() {
+
+    const Avatar = <div className="center">
+      <img className="avatar" src="/user_headphones.png"></img>
+    </div>
+
     return (
       <div>
         <Router>
+          <Menu avatar={Avatar}/>
+
           <Suspense fallback={<div>Loading...</div>}>
             <Switch>
               <Route path="/help/:id" component={Help}></Route>
@@ -24,9 +31,6 @@ class App extends React.Component {
               <Route path="/"><Home /></Route>
             </Switch>
           </Suspense>
-          <Menu />
-
-
         </Router>
       </div>
     );

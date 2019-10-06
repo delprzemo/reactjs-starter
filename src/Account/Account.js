@@ -29,12 +29,10 @@ export default class Account extends Component {
             alert("Wrong email or password")
         });
 
-        if(result) {
+        if (result) {
             localStorage.setItem('token', result.data.token);
             this.setState({
-                token: result.data.token,
-                email: "",
-                password: ""
+                token: result.data.token
             })
         }
     }
@@ -73,9 +71,7 @@ export default class Account extends Component {
                 <div>
                     Hello {this.state.email}
                 </div>
-                <div className="center">
-                    <img className="avatar" src="/user_headphones.png"></img>
-                </div>
+                {this.props.avatar}
                 <div className="right">
                     <button className="btn btn-primary margin-left" onClick={this.logout}>Log out</button>
                 </div>
