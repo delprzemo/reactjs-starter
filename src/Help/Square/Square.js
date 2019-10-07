@@ -3,12 +3,13 @@ import './Square.css'
 import { ColorContext } from '../../Contexts/ColorContext';
 
 export default class Square extends Component {
-    static contextType = ColorContext;
 
     constructor(props) {
         super(props);
-        this.state = { color: "red-background", running: true };
+        this.state = { color: "red-background", running: true, hasError: false };
     }
+
+    static contextType = ColorContext;
 
     componentDidMount() {
         this.timer = setInterval(this.tick, 1000);
