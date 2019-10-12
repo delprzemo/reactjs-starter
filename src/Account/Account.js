@@ -1,100 +1,86 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import './Account.css'
 import TextInput from '../Common/TextInput/TextInput'
 
 const axios = require('axios');
 
-export default class Account extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: "",
-            password: "",
-            token: "",
-            formState: {
-                email: { error: '' },
-                password: { error: '' }
-            }
-        }
-    }
+function Account() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [token, setToken] = useState("");
+    const [formState, setFormState] = useState({
+        email: { error: '' },
+        password: { error: '' }
+    });
 
-    login = async (e) => {
+    async function login(e) {
         e.preventDefault();
 
         const result = await axios.post('https://reqres.in/api/login', {
-            email: this.state.email,
-            password: this.state.password
+            email: email,
+            password: password
         }).catch(function (error) {
             alert("Wrong email or password")
         });
 
-        if(result) {
+        if (result) {
             localStorage.setItem('token', result.data.token);
-            this.setState({
-                token: result.data.token,
-                email: "",
-                password: ""
-            })
+            setEmail("");
+            setPassword("");
+            setToken(result.data.token);
         }
     }
 
-    logout = () => {
-        this.setState({
-            token: "",
-            email: "",
-            password: ""
-        })
-
+    function logout() {
+        setEmail("");
+        setPassword("");
+        setToken("");
         localStorage.removeItem('token');
     }
 
-    onEmailChange = (model) => {
+    function onEmailChange(model) {
         let email = model.value;
 
-        this.setState({
-            email: email,
-            formState: { ...this.state.formState, email: { error: model.error } }
-        })
+        setEmail(email);
+        setFormState({ ...formState, email: { error: model.error } });
     }
 
-    onPasswordChange = (model) => {
+    function onPasswordChange(model) {
         let password = model.value;
 
-        this.setState({
-            password: password,
-            formState: { ...this.state.formState, password: { error: model.error } }
-        })
+        setPassword(password);
+        setFormState({ ...formState, password: { error: model.error } });
     }
 
-    getLoggedMenu() {
+    function getLoggedMenu() {
         return (
             <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <div>
-                    Hello {this.state.email}
+                    Hello {email}
                 </div>
                 <div className="center">
                     <img className="avatar" src="/user_headphones.png"></img>
                 </div>
                 <div className="right">
-                    <button className="btn btn-primary margin-left" onClick={this.logout}>Log out</button>
+                    <button className="btn btn-primary margin-left" onClick={logout}>Log out</button>
                 </div>
             </div>
         )
     }
 
-    getNotLoggedMenu() {
+    function getNotLoggedMenu() {
         return (
             <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <div className="row">
                     <div className="col-1"></div>
                     <div className="col-10">
-                        <form onSubmit={this.login}>
+                        <form onSubmit={login}>
                             <div className="form-row">
                                 <div className="form-group row">
                                     <TextInput id="input_email"
-                                        value={this.state.email}
-                                        onChange={this.onEmailChange}
+                                        value={email}
+                                        onChange={onEmailChange}
                                         required={true}
                                         label="Email"
                                         placeholder="Email" />
@@ -102,8 +88,8 @@ export default class Account extends Component {
                                 </div>
                                 <div className="form-group row">
                                     <TextInput id="input_psw"
-                                        value={this.state.password}
-                                        onChange={this.onPasswordChange}
+                                        value={password}
+                                        onChange={onPasswordChange}
                                         required={true}
                                         type="password"
                                         label="Password"
@@ -113,7 +99,7 @@ export default class Account extends Component {
                             </div>
 
                             <div className="right">
-                                {this.state.formState.email.error || this.state.formState.password.error ?
+                                {formState.email.error || formState.password.error ?
                                     <button type="submit" disabled className="btn btn-primary margin-left disabled">Log in</button>
                                     : <button type="submit" className="btn btn-primary margin-left">Log in</button>
                                 }
@@ -127,15 +113,15 @@ export default class Account extends Component {
         )
     }
 
-    render() {
-        return (
-            <div className="dropdown dropleft">
-                <button className="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {this.state.token ? this.state.email : ' Log in'}
-                </button>
+    return (
+        <div className="dropdown dropleft">
+            <button className="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {token ? email : ' Log in'}
+            </button>
 
-                {this.state.token ? this.getLoggedMenu() : this.getNotLoggedMenu()}
-            </div>
-        )
-    }
+            {token ? getLoggedMenu() : getNotLoggedMenu()}
+        </div>
+    )
 }
+
+export default Account;

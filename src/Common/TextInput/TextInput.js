@@ -1,48 +1,45 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import './TextInput.css'
 
-export default class TextInput extends Component {
 
-    constructor(props) {
-        super(props); //id, onChange, label, value, isRequired, placeholder, type
-        this.state = {
-            touched: false, error: '', class: '', value: ''
-        }
-    }
+function TextInput(props) {
+    const [touched, setTouch] = useState(false);
+    const [error, setError] = useState('');
+    const [htmlClass, setHtmlClass] = useState('');
+    const [value, setValue] = useState('');
 
-    onValueChanged =(event) => {
+
+    function onValueChanged(event) {
         let [error, validClass, value] = ["", "", event.target.value];
 
-        [error, validClass] = (!value && this.props.required) ? 
+        [error, validClass] = (!value && props.required) ? 
             ["Value cannot be empty", "is-invalid"] : ["", "is-valid"]
 
-        this.props.onChange({value: value, error: error});
+        props.onChange({value: value, error: error});
 
-        this.setState({
-            touched: true,
-            error: error,
-            class: validClass,
-            value: value
-        })
+        setTouch(true);
+        setError(error);
+        setHtmlClass(validClass);
+        setValue(value);
     }
 
-    render() {
-        return (
-            <div>
-                <label htmlFor={this.props.id}>{this.props.label}</label>
-                <input
-                    value={this.props.value}
-                    type={this.props.type}
-                    onChange={this.onValueChanged}
-                    className={"form-control " + this.state.class}
-                    id={`id_${this.props.label}`}
-                    placeholder={this.props.placeholder} />
-                {this.state.error ?
-                    <div className="invalid-feedback">
-                        {this.state.error}
-                    </div> : null
-                }
-            </div>
-        )
-    }
+    return (
+        <div>
+            <label htmlFor={props.id}>{props.label}</label>
+            <input
+                value={props.value}
+                type={props.type}
+                onChange={onValueChanged}
+                className={"form-control " + htmlClass}
+                id={`id_${props.label}`}
+                placeholder={props.placeholder} />
+            {error ?
+                <div className="invalid-feedback">
+                    {error}
+                </div> : null
+            }
+        </div>
+    )
 }
+
+export default TextInput;

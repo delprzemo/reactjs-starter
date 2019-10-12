@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 
-export default class NoAccess extends Component {
-    render() {
-        return (
-            <div>
-                You don't have access here. Please log in
-            </div>
-        )
-    }
+function NoAccess() {
+    return (
+        <div>
+            You don't have access here. Please log in
+        </div>
+    )
 }
+
+export default NoAccess;

@@ -8,25 +8,23 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NoAccess from './NoAccess/NoAccess';
 import PrivateRoute from './Common/PrivateRoute/PrivateRoute';
 
+function App(){
+  return (
+    <div>
+      <Router>
+        <Menu />
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <Router>
-          <Menu />
-
-          <Switch>
-            <Route path="/help/:id" component={Help}></Route>
-            <PrivateRoute path="/list" component={List}></PrivateRoute>
-            <Route path="/noAccess"><NoAccess /></Route>
-            <Route path="/"><Home /></Route>
-          </Switch>
-        </Router>
-      </div>
-    );
-  }
+        <Switch>
+          <Route path="/help/:id" component={Help}></Route>
+          <PrivateRoute path="/list" component={List}></PrivateRoute>
+          <Route path="/noAccess"><NoAccess /></Route>
+          <Route path="/"><Home /></Route>
+        </Switch>
+      </Router>
+    </div>
+  );
 }
+
 
 export default App;
 

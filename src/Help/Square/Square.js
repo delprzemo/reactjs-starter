@@ -1,9 +1,22 @@
 import React, { Component, useState, useEffect } from 'react'
 import './Square.css'
 
+function useColor(initialColor) {
+    const [color, changeColor] = useState(initialColor);
+    function change(color) {
+        changeColor(color);
+    }
+
+    useEffect(() => {
+        console.log('Color changed');
+    });
+
+    return [color, change];
+}
+
 function Square(props) {
 
-    const [color, changeColor] = useState("red-background");
+    const [color, changeColor] = useColor("red-background");
     const [running, changeRunning] = useState(true);
 
     useEffect(() => {
