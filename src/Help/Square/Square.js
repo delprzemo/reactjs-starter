@@ -1,49 +1,39 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import './Square.css'
 
-export default class Square extends Component {
+function Square(props) {
 
-    constructor(props) {
-        super(props);
-        this.state = { color: "red-background", running: true };
-    }
+    const [color, changeColor] = useState("red-background");
+    const [running, changeRunning] = useState(true);
 
-    componentDidMount() {
-        this.timer = setInterval(this.tick, 1000);
-    }
+    useEffect(() => {
+        const timer = setInterval(tick, 1000);
+        return () => {
+            clearInterval(timer);
+        };
+    });
 
-    componentWillUnmount() {
-        clearInterval(this.timer);
-    }
-
-    onPauseButtonClick(e) {
+    function onPauseButtonClick(e) {
         e.preventDefault();
-        this.setState((state) => ({
-            running: !state.running
-        }));
+        changeRunning(!running);
     }
-    
 
-    tick = () => {
-        if (this.state && this.state.running) {
-            if (this.state.color === "red-background") {
-                this.setState({
-                    color: "green-background"
-                });
+    function tick() {
+        if (running) {
+            if (color === "red-background") {
+                changeColor("green-background");
             } else {
-                this.setState({
-                    color: "red-background"
-                });
+                changeColor("red-background");
             }
         }
     }
 
-    render() {
-        return (
-            <div>
-                <button onClick={(e) => this.onPauseButtonClick(e)}>Start/Stop</button>
-                {this.state.running  ?  <div className={this.state.color}>{this.props.children}</div> : <div>Please click button</div>}
-            </div>
-        )
-    }
+    return (
+        <div>
+            <button onClick={(e) => onPauseButtonClick(e)}>Start/Stop</button>
+            {running ? <div className={color}>{props.children}</div> : <div>Please click button</div>}
+        </div>
+    )
 }
+
+export default Square;
