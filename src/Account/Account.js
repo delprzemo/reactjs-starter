@@ -1,55 +1,54 @@
 import React, { Component, useState } from 'react'
 import './Account.css'
 import TextInput from '../Common/TextInput/TextInput'
+import { useSelector, useDispatch } from 'react-redux'
+import {login, logout} from '../Store/Actions/account.actions'
 
 const axios = require('axios');
 
 
 function Account() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [token, setToken] = useState("");
     const [formState, setFormState] = useState({
         email: { error: '' },
         password: { error: '' }
     });
+    const dispatch = useDispatch();
+    const email = useSelector(state => state.account.email);
+    const token = useSelector(state => state.account.token);
+
+    const [emailValue, changeEmailValue] = useState("");
+    const [passwordValue, changePasswordValue] = useState("");
 
     async function login(e) {
         e.preventDefault();
 
         const result = await axios.post('https://reqres.in/api/login', {
-            email: email,
-            password: password
+            email: emailValue,
+            password: passwordValue
         }).catch(function (error) {
             alert("Wrong email or password")
         });
 
         if (result) {
-            localStorage.setItem('token', result.data.token);
-            setEmail("");
-            setPassword("");
-            setToken(result.data.token);
+            dispatch(login({
+                token: result.data.token,
+                email: emailValue,
+                password: passwordValue
+            }));
         }
     }
 
     function logout() {
-        setEmail("");
-        setPassword("");
-        setToken("");
-        localStorage.removeItem('token');
+        dispatch(logout());
     }
 
     function onEmailChange(model) {
-        let email = model.value;
-
-        setEmail(email);
+        changeEmailValue(model.value)
         setFormState({ ...formState, email: { error: model.error } });
     }
 
     function onPasswordChange(model) {
-        let password = model.value;
-
-        setPassword(password);
+        changePasswordValue(model.value);
         setFormState({ ...formState, password: { error: model.error } });
     }
 
@@ -79,7 +78,7 @@ function Account() {
                             <div className="form-row">
                                 <div className="form-group row">
                                     <TextInput id="input_email"
-                                        value={email}
+                                        value={emailValue}
                                         onChange={onEmailChange}
                                         required={true}
                                         label="Email"
@@ -88,7 +87,7 @@ function Account() {
                                 </div>
                                 <div className="form-group row">
                                     <TextInput id="input_psw"
-                                        value={password}
+                                        value={passwordValue}
                                         onChange={onPasswordChange}
                                         required={true}
                                         type="password"
