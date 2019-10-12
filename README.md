@@ -147,13 +147,18 @@
 
 
 TODO: 
-- tests (Intermediate)
-- Hooks (przed "Zaawansowane informacje")
+- Hooks 
 - Redux
 - TypeScript
-- lint
 
 
 - Przełożyć "Myślenie reactowe" na początkowe slajdy
 - File structure (jest w FAQ)
 
+
+
+Przy tworzeniu nowej apki:
+1. Lint
+2. Redux
+3. TypeScript
+4. Hooks
