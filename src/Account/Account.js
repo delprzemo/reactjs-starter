@@ -17,11 +17,25 @@ export default class Account extends Component {
                 password: { error: '' }
             }
         }
+
+        this.emailInput = React.createRef();
+        this.passwordInput = React.createRef();
     }
 
     login = async (e) => {
         e.preventDefault();
 
+        if(this.state.formState.email.error) {
+            this.emailInput.current.focus();
+            return;
+        }
+
+        if(this.state.formState.password.error) {
+            this.passwordInput.current.focus();
+            return;
+        }
+
+    
         const result = await axios.post('https://reqres.in/api/login', {
             email: this.state.email,
             password: this.state.password
@@ -92,6 +106,7 @@ export default class Account extends Component {
                                         value={this.state.email}
                                         onChange={this.onEmailChange}
                                         required={true}
+                                        ref={this.emailInput}
                                         label="Email"
                                         placeholder="Email" />
 
@@ -101,6 +116,7 @@ export default class Account extends Component {
                                         value={this.state.password}
                                         onChange={this.onPasswordChange}
                                         required={true}
+                                        ref={this.passwordInput}
                                         type="password"
                                         label="Password"
                                         placeholder="Password" />
@@ -109,10 +125,7 @@ export default class Account extends Component {
                             </div>
 
                             <div className="right">
-                                {this.state.formState.email.error || this.state.formState.password.error ?
-                                    <button type="submit" disabled className="btn btn-primary margin-left disabled">Log in</button>
-                                    : <button type="submit" className="btn btn-primary margin-left">Log in</button>
-                                }
+                                <button type="submit" className="btn btn-primary margin-left">Log in</button>
                             </div>
 
                         </form>

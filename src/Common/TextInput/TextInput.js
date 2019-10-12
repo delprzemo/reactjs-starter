@@ -8,15 +8,21 @@ export default class TextInput extends Component {
         this.state = {
             touched: false, error: '', class: '', value: ''
         }
+
+        this.textInput = React.createRef();
     }
 
-    onValueChanged =(event) => {
+    focus = () => {
+        this.textInput.current.focus();
+    }
+
+    onValueChanged = (event) => {
         let [error, validClass, value] = ["", "", event.target.value];
 
-        [error, validClass] = (!value && this.props.required) ? 
+        [error, validClass] = (!value && this.props.required) ?
             ["Value cannot be empty", "is-invalid"] : ["", "is-valid"]
 
-        this.props.onChange({value: value, error: error});
+        this.props.onChange({ value: value, error: error });
 
         this.setState({
             touched: true,
@@ -33,6 +39,7 @@ export default class TextInput extends Component {
                 <input
                     value={this.props.value}
                     type={this.props.type}
+                    ref={this.textInput}
                     onChange={this.onValueChanged}
                     className={"form-control " + this.state.class}
                     id={`id_${this.props.label}`}
