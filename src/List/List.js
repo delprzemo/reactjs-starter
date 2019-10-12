@@ -1,6 +1,8 @@
 import React, { Component, useState } from 'react'
 import './List.css'
 import ListForm from './ListForm/ListForm'
+import { useSelector, useDispatch } from 'react-redux'
+import {removeUser, setPendingEditUser, editUser} from '../Store/Actions/users.actions'
 
 function List(props) {
     const usersInitial = [
@@ -10,17 +12,17 @@ function List(props) {
         { firstName: "Peter", lastName: "Seedorf", notes: "Don't try to make him angry", id: 4 }
     ]
 
-    const [users, setUsers] = useState(usersInitial);
-    const [pendingEditUser, setPendingEditUser] = useState(null);
+    const dispatch = useDispatch();
+    const users = useSelector(state => state.users.users);
+    const pendingEditUser = useSelector(state => state.users.pendingEditUser);
 
     
-    function removeUser(id) {
-        const newUserList = users.filter(x => x.id !== id);
-        setUsers(newUserList);
+    function handleRemoveUser(id) {
+        dispatch(removeUser(id));
     }
 
-    function editUser(user) {
-        setPendingEditUser(user);
+    function onEditUser(user) {
+        dispatch(setPendingEditUser(user));
     }
 
     function getUsers() {
@@ -31,8 +33,8 @@ function List(props) {
                     <td>{props.user.firstName}</td>
                     <td>{props.user.lastName}</td>
                     <td>{props.user.notes}</td>
-                    <td><button onClick={(e) => editUser(props.user)} className="btn btn-info">Edit</button></td>
-                    <td><button onClick={(e) => removeUser(props.user.id)} className="btn btn-danger">Remove</button></td>
+                    <td><button onClick={(e) => onEditUser(props.user)} className="btn btn-info">Edit</button></td>
+                    <td><button onClick={(e) => handleRemoveUser(props.user.id)} className="btn btn-danger">Remove</button></td>
                 </tr>
             )
         }
@@ -58,15 +60,12 @@ function List(props) {
     }
 
     function onSaveUser(savedUser) {
-        let newUsers = users;
-        let index = newUsers.findIndex((user => user.id == savedUser.id));
-        newUsers[index] = savedUser;
-        setUsers(newUsers);
-        setPendingEditUser(null);
+        dispatch(editUser(savedUser));
+        dispatch(setPendingEditUser(null));
     }
 
     function onCancel() {
-        setPendingEditUser(null);
+        dispatch(setPendingEditUser(null));
     }
 
     function renderListOrForm() {

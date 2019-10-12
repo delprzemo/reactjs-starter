@@ -12,6 +12,7 @@ function Account() {
         email: { error: '' },
         password: { error: '' }
     });
+    
     const dispatch = useDispatch();
     const email = useSelector(state => state.account.email);
     const token = useSelector(state => state.account.token);
@@ -19,7 +20,7 @@ function Account() {
     const [emailValue, changeEmailValue] = useState("");
     const [passwordValue, changePasswordValue] = useState("");
 
-    async function login(e) {
+    async function loginUser(e) {
         e.preventDefault();
 
         const result = await axios.post('https://reqres.in/api/login', {
@@ -38,7 +39,7 @@ function Account() {
         }
     }
 
-    function logout() {
+    function logoutUser() {
         dispatch(logout());
     }
 
@@ -62,7 +63,7 @@ function Account() {
                     <img className="avatar" src="/user_headphones.png"></img>
                 </div>
                 <div className="right">
-                    <button className="btn btn-primary margin-left" onClick={logout}>Log out</button>
+                    <button className="btn btn-primary margin-left" onClick={logoutUser}>Log out</button>
                 </div>
             </div>
         )
@@ -74,7 +75,7 @@ function Account() {
                 <div className="row">
                     <div className="col-1"></div>
                     <div className="col-10">
-                        <form onSubmit={login}>
+                        <form onSubmit={loginUser}>
                             <div className="form-row">
                                 <div className="form-group row">
                                     <TextInput id="input_email"
