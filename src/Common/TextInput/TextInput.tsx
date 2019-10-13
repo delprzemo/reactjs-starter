@@ -1,15 +1,24 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState, FormEvent, ChangeEvent } from 'react'
 import './TextInput.css'
 
+export type TextInputProps = {
+    required: boolean, 
+    onChange: Function,
+    id: string,
+    label: string,
+    placeholder: string,
+    value: string,
+    type?: string
+}
 
-function TextInput(props) {
+function TextInput(props: TextInputProps) {
     const [touched, setTouch] = useState(false);
     const [error, setError] = useState('');
     const [htmlClass, setHtmlClass] = useState('');
     const [value, setValue] = useState('');
 
 
-    function onValueChanged(event) {
+    function onValueChanged(event: ChangeEvent<HTMLInputElement>) {
         let [error, validClass, value] = ["", "", event.target.value];
 
         [error, validClass] = (!value && props.required) ? 
@@ -25,7 +34,7 @@ function TextInput(props) {
 
     return (
         <div>
-            <label htmlFor={props.id}>{props.label}</label>
+            <label htmlFor={props.id.toString()}>{props.label}</label>
             <input
                 value={props.value}
                 type={props.type}
