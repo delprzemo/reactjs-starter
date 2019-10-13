@@ -1,8 +1,10 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState, FormEvent } from 'react'
 import './Account.css'
 import TextInput from '../Common/TextInput/TextInput'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout, loginHttpRequest} from '../Store/Actions/account.actions'
+import { RootStateType } from '../Store/Reducers/root.reducer'
+import { InputModel } from '../Common/Models/FormModel.model'
 
 function Account() {
     const [formState, setFormState] = useState({
@@ -11,27 +13,27 @@ function Account() {
     });
     
     const dispatch = useDispatch();
-    const email = useSelector(state => state.account.email);
-    const token = useSelector(state => state.account.token);
+    const email = useSelector((state: RootStateType) => state.account.email);
+    const token = useSelector((state: RootStateType) => state.account.token);
 
     const [emailValue, changeEmailValue] = useState("");
     const [passwordValue, changePasswordValue] = useState("");
 
-    async function loginUser(e) {
+    async function loginUser(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         dispatch(loginHttpRequest(emailValue, passwordValue));
     }
 
     function logoutUser() {
-        dispatch(logout());
+        dispatch(logout()); 
     }
 
-    function onEmailChange(model) {
+    function onEmailChange(model: InputModel) {
         changeEmailValue(model.value)
         setFormState({ ...formState, email: { error: model.error } });
     }
 
-    function onPasswordChange(model) {
+    function onPasswordChange(model: InputModel) {
         changePasswordValue(model.value);
         setFormState({ ...formState, password: { error: model.error } });
     }

@@ -1,6 +1,16 @@
-import { LOGIN, LOGOUT, LOGIN_REQUEST, LOGIN_REQUEST_COMPLETED } from '../Actions/account.actions';
+import { LOGIN, LOGOUT, LOGIN_REQUEST, LOGIN_REQUEST_COMPLETED, loginActionType } from '../Actions/account.actions';
 
-const initialAccountState = {
+export interface AccountState {
+    email: string,
+    token: string,
+    password: string,
+    loginRequest: {
+        pending: boolean,
+        response: any
+    }
+}
+
+const initialAccountState : AccountState = {
     email: '',
     token: '',
     password: '',
@@ -10,7 +20,7 @@ const initialAccountState = {
     }
 }
 
-function accountReducer(state = initialAccountState, action) {
+function accountReducer(state : AccountState = initialAccountState, action: loginActionType) : AccountState{
     switch (action.type) {
         case LOGIN:
             return {
@@ -23,7 +33,7 @@ function accountReducer(state = initialAccountState, action) {
                 }
             }
         case LOGOUT:
-            return { email: '', token: '', password: '' }
+            return { ...state, email: '', token: '', password: '' }
         case LOGIN_REQUEST:
             return {
                 ...state, loginRequest: {
