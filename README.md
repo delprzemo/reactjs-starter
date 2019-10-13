@@ -147,11 +147,7 @@
 
 
 TODO: 
-- tests (Intermediate)
-- Hooks (przed "Zaawansowane informacje")
-- Redux
 - TypeScript
-- lint
 
 
 - Przełożyć "Myślenie reactowe" na początkowe slajdy

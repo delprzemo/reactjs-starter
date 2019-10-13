@@ -2,10 +2,7 @@ import React, { Component, useState } from 'react'
 import './Account.css'
 import TextInput from '../Common/TextInput/TextInput'
 import { useSelector, useDispatch } from 'react-redux'
-import {login, logout} from '../Store/Actions/account.actions'
-
-const axios = require('axios');
-
+import { logout, loginHttpRequest} from '../Store/Actions/account.actions'
 
 function Account() {
     const [formState, setFormState] = useState({
@@ -22,21 +19,7 @@ function Account() {
 
     async function loginUser(e) {
         e.preventDefault();
-
-        const result = await axios.post('https://reqres.in/api/login', {
-            email: emailValue,
-            password: passwordValue
-        }).catch(function (error) {
-            alert("Wrong email or password")
-        });
-
-        if (result) {
-            dispatch(login({
-                token: result.data.token,
-                email: emailValue,
-                password: passwordValue
-            }));
-        }
+        dispatch(loginHttpRequest(emailValue, passwordValue));
     }
 
     function logoutUser() {
